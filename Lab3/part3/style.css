@@ -25,6 +25,7 @@ aside {
 nav {
   float: left;
   width: 20%;
+  box-sizing: border-box;
 }
 
 footer {
@@ -43,3 +44,72 @@ header, footer {
 }
 
 /* WRITE YOUR CODE BELOW HERE */
+html{
+  font-family: 'Noto Serif', serif;
+  font-size: 10px;
+  position: relative;
+}
+body{
+  font-size:1.5rem ;
+  font-family: 'PT Serif', serif;
+  line-height:1.5;
+  letter-spacing:0.08rem ;
+  word-spacing: 0.15rem;
+}
+h1{
+  font-size: 4.5rem;
+}
+h2{
+  font-size: 2.5rem;
+}
+.h{
+  font-family: 'Noto Serif', serif;
+  letter-spacing:0.3rem ;
+}
+section .h + p {
+  text-indent: 2rem; 
+}
+a:link, a:active {
+  color:#a66;
+ 
+}
+a:hover, a:visited {
+   color:rgb(216, 60, 60); 
+ 
+  text-decoration: none;
+  
+}
+a:focus{
+   outline:none ; 
+}
+section p a::after{
+  display:inline-block;
+  height:1.3rem;
+  width:1.3rem;
+  margin: 0 2px 0 4px;
+  content: "";
+  background:url(https://raw.githubusercontent.com/mdn/learning-area/master/css/styling-text/typesetting-a-homepage-start/external-link-52.png) no-repeat 0 0;
+  background-size: 100% auto;
+}
+nav ul li a{
+  display: block;
+  border-radius: 5px;
+  text-decoration: none;
+  border: 2px solid #a66;
+  text-align: center;
+  background-color: rgba(170, 102, 102, 0.145);
+  padding: 0rem;
+}
+nav ul li a:hover{
+  background-color: rgba(170, 102, 102, 0.37);
+}
+nav ul li{
+  list-style: none;
+  width: 13rem;
+   margin: 25px 0 25px 0;
+   line-height: 3;
+}
+section li, aside ul li{
+  line-height: inherit;
+list-style-type: initial;
+}

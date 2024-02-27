@@ -3,3 +3,17 @@ html {
 }
 
 /* Your CSS below here */
+p {
+  box-sizing: border-box;
+  width: 200px;
+  line-height: 3;
+  text-align: center;
+  font-size: 1.125rem;
+  background:#dbc6eb;
+  color: #dbc6eb;
+  text-shadow: 1px 1px 1px black;
+  border-radius: 15px;
+  border: 1px solid #D47AE8;
+  background-image: linear-gradient(to bottom right,rgba(0,0,0,0)30%, rgba(0,0,0,0.2)70%);
+  box-shadow: 1px 1px 3px 3px black, 1px 1px 1px 1px rgba(255,255,255,0.5)inset,-1px -1px 1px 1px rgba(0,0,0,0.5)inset;
+}

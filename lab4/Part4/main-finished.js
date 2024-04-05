@@ -46,6 +46,22 @@ Ball.prototype.update = function () {
   } else if (this.y - this.size <= 0) {
     this.velY = -this.velY;
   }
+  Ball.prototype.collision = function () {
+    for (let k = 0; k < balls.length; k++) {
+      if (!(this === balls[k])) {
+        const dx = this.x - balls[k].x;
+        const dy = this.y - balls[k].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+  
+        if (distance < this.size + balls[k].size) {
+          balls[k].color = `rgb(${random(0, 255)}, ${random(0, 255)}, ${random(
+            0,
+            255
+          )})`;
+        }
+      }
+    }
+  };
 class Ball {
   constructor(x, y, velX, velY, color, size) {
     this.x = x;

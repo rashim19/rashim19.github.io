@@ -116,7 +116,32 @@ Ball.prototype.update = function () {
     ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.stroke();
   };
+  Redhole.prototype.setBound = function () {
+    if (this.x + this.size >= width) {
+      this.x -= this.size;
+    } else if (this.x - this.size <= 0) {
+      this.x += this.size;
+    } else if (this.y + this.size >= height) {
+      this.y -= this.size;
+    } else if (this.y - this.size <= 0) {
+      this.y += this.size;
+    }
+  };
+  Redhole.prototype.collision = function () {
+    for (let k = 0; k < balls.length; k++) {
+      if (balls[k].exist === true) {
+        const dx = this.x - balls[k].x;
+        const dy = this.y - balls[k].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
   
+        if (distance < this.size + balls[k].size) {
+          balls[k].exist = false;
+          count2++;
+          para2.textContent = "Player 2 ball count: " + count2;
+        }
+      }
+    }
+  };
 
   collisionDetect() {
     for (const ball of balls) {

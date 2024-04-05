@@ -104,26 +104,19 @@ Ball.prototype.update = function () {
     };
   };
 
-  update() {
-    if (this.x + this.size >= width) {
-      this.velX = -Math.abs(this.velX);
-    }
-
-    if (this.x - this.size <= 0) {
-      this.velX = Math.abs(this.velX);
-    }
-
-    if (this.y + this.size >= height) {
-      this.velY = -Math.abs(this.velY);
-    }
-
-    if (this.y - this.size <= 0) {
-      this.velY = Math.abs(this.velY);
-    }
-
-    this.x += this.velX;
-    this.y += this.velY;
+  function Redhole(x, y, velX, velY, color, size, exist) {
+    Shape.call(this, x, y, 20, 20, exist);
+    this.color = "red";
+    this.size = 15;
   }
+  Redhole.prototype.draw = function () {
+    ctx.beginPath();
+    ctx.strokeStyle = this.color;
+    ctx.lineWidth = 3;
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+    ctx.stroke();
+  };
+  
 
   collisionDetect() {
     for (const ball of balls) {

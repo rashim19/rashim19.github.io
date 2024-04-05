@@ -75,12 +75,34 @@ Ball.prototype.update = function () {
     ctx.stroke();
   };
 
-  draw() {
-    ctx.beginPath();
-    ctx.fillStyle = this.color;
-    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-    ctx.fill();
-  }
+  Blackhole.prototype.setBound = function () {
+    if (this.x + this.size >= width) {
+      this.x -= this.size;
+    } else if (this.x - this.size <= 0) {
+      this.x += this.size;
+    } else if (this.y + this.size >= height) {
+      this.y -= this.size;
+    } else if (this.y - this.size <= 0) {
+      this.y += this.size;
+    }
+  };
+  Blackhole.prototype.control = function () {
+    let presskey = this;
+    window.onkeypress = function (e) {
+      if (e.key === "a") {
+        presskey.x -= presskey.velX;
+      }
+      if (e.key === "d") {
+        presskey.x += presskey.velX;
+      }
+      if (e.key === "w") {
+        presskey.y -= presskey.velY;
+      }
+      if (e.key === "s") {
+        presskey.y += presskey.velY;
+      }
+    };
+  };
 
   update() {
     if (this.x + this.size >= width) {

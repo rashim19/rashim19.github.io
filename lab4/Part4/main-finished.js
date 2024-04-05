@@ -1,4 +1,6 @@
 // set up canvas
+const para1 = document.querySelector(".player1");
+const para2 = document.querySelector(".player2");
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");

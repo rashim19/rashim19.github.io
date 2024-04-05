@@ -62,15 +62,18 @@ Ball.prototype.update = function () {
       }
     }
   };
-class Ball {
-  constructor(x, y, velX, velY, color, size) {
-    this.x = x;
-    this.y = y;
-    this.velX = velX;
-    this.velY = velY;
-    this.color = color;
-    this.size = size;
+  function Blackhole(x, y, velX, velY, color, size, exist) {
+    Shape.call(this, x, y, 20, 20, exist);
+    this.color = "white";
+    this.size = 15;
   }
+  Blackhole.prototype.draw = function () {
+    ctx.beginPath();
+    ctx.strokeStyle = this.color;
+    ctx.lineWidth = 3;
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+    ctx.stroke();
+  };
 
   draw() {
     ctx.beginPath();

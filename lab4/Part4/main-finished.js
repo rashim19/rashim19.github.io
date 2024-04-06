@@ -46,6 +46,7 @@ Ball.prototype.update = function () {
   } else if (this.y - this.size <= 0) {
     this.velY = -this.velY;
   }
+};
   Ball.prototype.collision = function () {
     for (let k = 0; k < balls.length; k++) {
       if (!(this === balls[k])) {
@@ -103,6 +104,22 @@ Ball.prototype.update = function () {
       }
     };
   };
+  Blackhole.prototype.collision = function () {
+    for (let k = 0; k < balls.length; k++) {
+      if (balls[k].exist === true) {
+        const dx = this.x - balls[k].x;
+        const dy = this.y - balls[k].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+  
+        if (distance < this.size + balls[k].size) {
+          balls[k].exist = false;
+          count1++;
+          para1.textContent = "Player 1 ball count: " + count1;
+        }
+      }
+    }
+  };
+  
 
   function Redhole(x, y, velX, velY, color, size, exist) {
     Shape.call(this, x, y, 20, 20, exist);
@@ -142,51 +159,71 @@ Ball.prototype.update = function () {
       }
     }
   };
-
-  collisionDetect() {
-    for (const ball of balls) {
-      if (!(this === ball)) {
-        const dx = this.x - ball.x;
-        const dy = this.y - ball.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < this.size + ball.size) {
-          ball.color = this.color = randomRGB();
-        }
+  Redhole.prototype.control = function () {
+    let secondplayer = this;
+    window.onkeydown = function (e) {
+      if (e.keyCode === 37) {
+        secondplayer.x -= secondplayer.velX;
       }
-    }
-  }
-}
+      if (e.keyCode === 39) {
+        secondplayer.x += secondplayer.velX;
+      }
+      if (e.keyCode === 38) {
+        secondplayer.y -= secondplayer.velY;
+      }
+      if (e.keyCode === 40) {
+        secondplayer.y += secondplayer.velY;
+      }
+    };
+  };
 
-const balls = [];
+  let count1 = 0;
+let count2 = 0;
+let hole = new Blackhole(random(0, width), random(0, height), true);
+let hole2 = new Redhole(random(0, width), random(0, height), true);
 
-while (balls.length < 25) {
-  const size = random(10, 20);
-  const ball = new Ball(
-    // ball position always drawn at least one ball width
-    // away from the edge of the canvas, to avoid drawing errors
+
+
+let balls = [];
+while (balls.length < 20) {
+  let size = random(10, 20);
+  let ball = new Ball(
     random(0 + size, width - size),
     random(0 + size, height - size),
-    random(-7, 7),
-    random(-7, 7),
-    randomRGB(),
-    size
+    random(-1, 10),
+    random(-1, 10),
+    `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`,
+    size,
+    true
   );
-
   balls.push(ball);
 }
 
+//draw balls
+
 function loop() {
-  ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+  ctx.fillStyle = "rgb(0,0,0, .5)";
   ctx.fillRect(0, 0, width, height);
 
-  for (const ball of balls) {
-    ball.draw();
-    ball.update();
-    ball.collisionDetect();
+  for (let i = 0; i < balls.length; i++) {
+    if (balls[i].exist === true) {
+      balls[i].draw();
+      balls[i].update();
+      balls[i].collision();
+    }
   }
+  hole.draw();
+  hole.setBound();
+  hole.collision();
+  hole.control();
+
+  hole2.draw();
+  hole2.setBound();
+  hole2.collision();
+  hole2.control();
 
   requestAnimationFrame(loop);
 }
 
 loop();
+
